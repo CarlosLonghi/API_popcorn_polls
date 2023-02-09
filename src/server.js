@@ -1,11 +1,13 @@
 // importing express
-const express = require('express')
+const express = require("express")
+const routes = require("./routes")
+
+
 // starting express
 const app = express()
+app.use(express.json())
 
-app.get('/message/:id', (request, response) => {
-  response.send(`Id da mensagem: ${request.params.id}`)
-})
+app.use(routes)
 
 // API Port
 const PORT = 3333
