@@ -4,7 +4,8 @@ const AppError = require('../utils/AppError')
 class NotesController {
   async create(request, response) {
     const { title, description, rating, movie_tags } = request.body
-    const { user_id } = request.params
+
+    const user_id = request.user.id
 
     const ratingAverage = rating > 5 || rating < 1
 
@@ -12,7 +13,7 @@ class NotesController {
       throw new AppError('De uma nota ao titulo, de 1 á 5!')
     }
 
-    const note_id = await knex('movie_notes').insert({
+    const [note_id] = await knex('movie_notes').insert({
       title,
       description,
       rating,
@@ -52,7 +53,9 @@ class NotesController {
   }
 
   async index(request, response) {
-    const { title, user_id, movie_tags } = request.query
+    const { title, movie_tags } = request.query
+
+    const user_id = request.user.id
 
     let notes
 
