@@ -1,4 +1,4 @@
-# API MOVIES
+# API POPCORN POLLS
 Aplicação em Node desenvolvida a partir de um desafio proposto no Explorer, a ideia foi criar uma aplicação em Node.js onde o usuário cadastra um filme, preenche com algumas informações (nome, descrição, nota) e cria tags relacionadas a ele.
 - Conhecimentos adquiridos com esse projeto:
     - Express (Framework usado para lidar com requisições HTTP 'GET, POST, PUT, DELETE, PATCH')
