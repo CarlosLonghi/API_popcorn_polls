@@ -3,7 +3,7 @@ const AppError = require('../utils/AppError')
 
 class NotesController {
   async create(request, response) {
-    const { title, description, rating, movie_tags } = request.body
+    const { title, description, rating, tags } = request.body
 
     const user_id = request.user.id
 
@@ -20,7 +20,7 @@ class NotesController {
       user_id
     })
 
-    const tagsInsert = movie_tags.map(name => {
+    const tagsInsert = tags.map(name => {
       return {
         name,
         note_id,
@@ -53,13 +53,13 @@ class NotesController {
   }
 
   async index(request, response) {
-    const { title, movie_tags } = request.query
+    const { title, tags } = request.query
 
     const user_id = request.user.id
 
     let notes
 
-    if (movie_tags) {
+    if (tags) {
       const filterTags = movie_tags.split(',').map(tag => tag.trim())
 
       notes = await knex('movie_tags')
@@ -83,7 +83,7 @@ class NotesController {
     }
 
     const userTags = await knex('movie_tags').where({ user_id })
-    const notesWithTags = notes.map(note => {
+    const movieWithTags = notes.map(note => {
       const noteTags = userTags.filter(tag => tag.note_id === note.id)
 
       return {
@@ -92,7 +92,7 @@ class NotesController {
       }
     })
 
-    return response.json(notesWithTags)
+    return response.json(movieWithTags)
   }
 }
 
