@@ -7,12 +7,6 @@ class NotesController {
 
     const user_id = request.user.id
 
-    const ratingAverage = rating > 5 || rating < 1
-
-    if (ratingAverage) {
-      throw new AppError('De uma nota ao titulo, de 1 á 5!')
-    }
-
     const [note_id] = await knex('movie_notes').insert({
       title,
       description,
